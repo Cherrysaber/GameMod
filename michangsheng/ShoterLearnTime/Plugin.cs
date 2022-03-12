@@ -14,8 +14,8 @@ namespace ShoterLearnTime
 
         public delegate void Log(object data);
         public static Log LogDebug;
-        public static KBEngine.Avatar player;
-        public static int ratio;
+        private static KBEngine.Avatar player;
+        private static int ratio;
 
         private void Awake()
         {
@@ -34,9 +34,6 @@ namespace ShoterLearnTime
         [HarmonyPostfix]                              // There are different patch types. Prefix code runs before original code
         static void patchGetStudiStaticSkillTime(ref int __result){
             player = Tools.instance.getPlayer();    // 获取玩家 
-            if (player.ToString() == ""){
-                return; // 未进入游戏
-            }
             if (player.wuXin < ShorterBaseWuXin.Value){
                 return; // 小于基础悟性
             }
@@ -52,9 +49,6 @@ namespace ShoterLearnTime
         [HarmonyPostfix]                              // There are different patch types. Prefix code runs before original code
         static void patchGetStudiSkillTime(ref int __result){
             player = Tools.instance.getPlayer();    // 获取玩家 
-            if (player.ToString() == ""){
-                return; // 未进入游戏
-            }
             if (player.wuXin < ShorterBaseWuXin.Value){
                 return; // 小于基础悟性
             }
