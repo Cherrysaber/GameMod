@@ -22,8 +22,8 @@ namespace ShoterLearnTime
             // Plugin startup logic
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
-            ShorterBaseWuXin = Config.Bind("ShoterLearnTime",  "ShorterBaseWuXin", 10, "基础悟性");
-            ShorterNeedWuxin = Config.Bind("ShoterLearnTime",  "ShorterNeedWuxin", 10, "缩短一倍时间所需悟性");
+            ShorterBaseWuXin = Config.Bind("ShoterLearnTime",  "ShorterBaseWuXin", 30, "基础悟性");
+            ShorterNeedWuxin = Config.Bind("ShoterLearnTime",  "ShorterNeedWuxin", 20, "缩短一倍时间所需悟性");
             Harmony.CreateAndPatchAll(typeof(Plugin));
 
             LogDebug = Logger.LogDebug;
