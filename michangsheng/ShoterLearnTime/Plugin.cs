@@ -6,12 +6,7 @@ using UnityEngine;
 
 namespace ShoterLearnTime
 {
-<<<<<<< HEAD
-    [BepInPlugin("cn.shabywu.michangsheng.ShoterLearnTime", "缩短功法学习/突破时间", "0.2.0")]
-    public class Plugin : BaseUnityPlugin
-    {
 
-=======
     [BepInPlugin("cn.shabywu.michangsheng.ShoterLearnTime", "缩短功法学习/突破时间", "1.0.0")]
     public class Plugin : BaseUnityPlugin
     {
@@ -20,7 +15,7 @@ namespace ShoterLearnTime
         // 对于之前的版本, 领悟功法的耗时由 Tools.getStudiSkillTime 实现, 突破功法的耗时由 Tools.getStudiStaticSkillTime 实现
         static ConfigEntry<int> ShorterStudyMultipiler;
         static ConfigEntry<int> ShorterTuPoMultipiler;
->>>>>>> a186cf05d61f02e5c3739779fe1549f1867ff487
+
 
         static ConfigEntry<float> CoefficientTau;
         static ConfigEntry<float> LogisticMaxPercentage;
@@ -36,12 +31,9 @@ namespace ShoterLearnTime
             // Plugin startup logic
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
-<<<<<<< HEAD
-            Harmony.CreateAndPatchAll(typeof(Plugin));
-=======
+
             ShorterStudyMultipiler = Config.Bind("ShoterLearnTime",  "ShorterStudyMultipiler", 10, "缩短学习时间倍率");
             ShorterTuPoMultipiler = Config.Bind("ShoterLearnTime",  "ShorterTuPoMultipiler", 3, "缩短突破时间倍率");
->>>>>>> a186cf05d61f02e5c3739779fe1549f1867ff487
 
             EnableLogisticFunction = Config.Bind("Logistic-Function", "EnableLogisticFunction", true, "使用 Logistic 方程增强【悟性】对领悟/突破的影响, 关闭则使用简单粗暴的倍率进行控制");
             CoefficientTau = Config.Bind("Logistic-Function", "CoefficientTau", 0.05f, "Logistic 方程的时间系数, 该值越大, 【悟性】对学习时间的影响越明显。不建议修改该值。");
@@ -84,33 +76,27 @@ namespace ShoterLearnTime
         // 降低功法突破时间
         [HarmonyPatch(typeof(Tools), "CalcTuPoTime")] // Specify target method with HarmonyPatch attribute
         [HarmonyPostfix]                              // There are different patch types. Prefix code runs before original code
-<<<<<<< HEAD
-        static void patchGetStudiStaticSkillTime(ref int __result){
 
-=======
         static void patchCalcTuPoTime(ref int __result){
             if (EnableLogisticFunction.Value) {
                 return;
             }
             __result /= ShorterTuPoMultipiler.Value;
             LogDebug("calling patched Tools::CalcTuPoTime result: " + __result);
->>>>>>> a186cf05d61f02e5c3739779fe1549f1867ff487
+
         }
 
         // 降低功法学习时间
         [HarmonyPatch(typeof(Tools), "CalcLingWuTime")] // Specify target method with HarmonyPatch attribute
         [HarmonyPostfix]                              // There are different patch types. Prefix code runs before original code
-<<<<<<< HEAD
-        static void patchGetStudiSkillTime(ref int __result){
 
-=======
         static void patchCalcLingWuTime(ref int __result){
             if (EnableLogisticFunction.Value) {
                 return;
             }
             __result /= ShorterStudyMultipiler.Value;
             LogDebug("calling patched Tools::CalcLingWuTime result: " + __result);
->>>>>>> a186cf05d61f02e5c3739779fe1549f1867ff487
+
         }
     }
 }
